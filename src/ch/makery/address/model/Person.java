@@ -22,6 +22,9 @@ public class Person {
     
 
     //constructeur
+    public Person() {
+        this(null, null, null, 0, null, 0, null);
+    }
     public Person(String prenom, String nom,String adresse, int cp, String ville,int num,String mail) {
     	this.prenom = new SimpleStringProperty(prenom);
         this.nom = new SimpleStringProperty(nom);
@@ -32,7 +35,8 @@ public class Person {
         this.numero = new  SimpleIntegerProperty(num);
         this.anniversaire = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
-    //prenom
+
+	//prenom
     public String getPrenom() {
         return prenom.get();
     }

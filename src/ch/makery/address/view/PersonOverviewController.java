@@ -1,5 +1,5 @@
 package ch.makery.address.view;
-
+import ch.makery.address.model.Person;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -106,6 +106,38 @@ public class PersonOverviewController {
             alert.setTitle("Pas de sélection");
             alert.setHeaderText("Vous n'avez pas sélectionnez de contact");
             alert.setContentText("Veuillez sélectionner un contact svp.");
+
+            alert.showAndWait();
+        }
+    }
+    // appel la fenetre Edit pour ajouter une nouvelle personne (les champs sont vides)
+    @FXML
+    private void handleNewPerson() {
+        Person tempPerson = new Person();
+        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+        if (okClicked) {
+            mainApp.getPersonData().add(tempPerson);
+        }
+    }
+
+    // Appel la fenetre Edit pour modifier le contact sélectionne (les champs sont remplis de la personne selectionnée)
+
+    @FXML
+    private void handleEditPerson() {
+        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+            if (okClicked) {
+                showPersonDetails(selectedPerson);
+            }
+
+        } else {
+            // Si pas de contact sélectionné
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Pas de sélection");
+            alert.setHeaderText("Pas de contact sélectionné");
+            alert.setContentText("Veuillez cliquer sur un des contact dans le tableau afin de le modifier.");
 
             alert.showAndWait();
         }

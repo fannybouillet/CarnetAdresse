@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import ch.makery.address.model.Person;
+import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -93,6 +95,43 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+    
+    
+    //Ouvre la fenetre de modification avec les données de la personne sélectionnée
+    // si on valide ça modifie ect and true is returned.
+   //retourne vrai si Valider est cliquer sinon faux
+
+    public boolean showPersonEditDialog(Person person) {
+        try {
+            // Chargement de la fenetre PersonEditDialog
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Modification d'un contact");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // modification du contact via le controller
+            PersonEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setPerson(person);
+
+            // afficher la fenetre jusque fermeture (valider/annuler)
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
     //getteur PrimaryStage
     public Stage getPrimaryStage() {
         return primaryStage;
