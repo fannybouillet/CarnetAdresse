@@ -27,13 +27,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nom" />
-            <Label text="Prénom" GridPane.rowIndex="1" />
+            <Label text="Nom *" />
+            <Label text="Prénom *" GridPane.rowIndex="1" />
             <Label text="Adresse" GridPane.rowIndex="2" />
             <Label text="code Postal" GridPane.rowIndex="3" />
             <Label text="Ville" GridPane.rowIndex="4" />
             <Label text="Mail" GridPane.rowIndex="5" />
-            <Label text="Numéro de téléphone" GridPane.rowIndex="6" />
+            <Label text="Numéro de téléphone *" GridPane.rowIndex="6" />
             <Label text="Anniversaire" GridPane.rowIndex="7" />
             <TextField fx:id="nomField" GridPane.columnIndex="1" />
             <TextField fx:id="prenomField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -47,8 +47,8 @@
       </GridPane>
       <ButtonBar layoutX="500.0" layoutY="492.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#handleOk" text="Valider" />
-            <Button mnemonicParsing="false" onAction="#handleCancel" text="Annuler" />
+          <Button defaultButton="true" mnemonicParsing="false" onAction="#handleOk" text="Valider" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Annuler" />
         </buttons>
       </ButtonBar>
    </children>

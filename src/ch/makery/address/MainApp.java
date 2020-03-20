@@ -1,17 +1,24 @@
 package ch.makery.address;
 
-//import
+//imports
+import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-
+import java.util.prefs.Preferences;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import ch.makery.address.model.Person;
+import ch.makery.address.model.PersonListWrapper;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
+import ch.makery.address.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -28,16 +35,6 @@ public class MainApp extends Application {
 
 
     public MainApp() {
-        // Quelques données pour test
-        personData.add(new Person("Fanny", "Bouillet","4 rue des pommes",74000,"ANNECY",40738263,"contact@pioupiou.com"));
-        personData.add(new Person("Anthony", "Da Cruz","4 rue des fraises",74000,"ANNECY",40738263,"contact@pioupiou.com"));
-        personData.add(new Person("Estelle", "Avarello","4 rue des poires",74000,"ANNECY",40738263,"contact@pioupiou.com"));
-        personData.add(new Person("Floriane", "Monvoisin","4 rue des oranges",74000,"ANNECY",40738263,"contact@pioupiou.com"));
-        personData.add(new Person("Sana", "Yahyaoui","4 rue des peches",74000,"ANNECY",40738263,"contact@pioupiou.com"));
-        personData.add(new Person("Damien", "Dabernat","4 rue des cerises",74000,"ANNECY",40738263,"contact@pioupiou.com"));
-        personData.add(new Person("Natacha", "Patey","4 rue des mangues",74000,"ANNECY",40738263,"contact@pioupiou.com"));
-        personData.add(new Person("Laurine", "Peyrard","4 rue des myrtilles",74000,"ANNECY",40738263,"contact@pioupiou.com"));
-        personData.add(new Person("Clement", "Giroud","4 rue des abricots",74000,"ANNECY",40738263,"contact@pioupiou.com"));
     }
   
     // retourne les données de la liste observée
@@ -67,9 +64,19 @@ public class MainApp extends Application {
             // Ajout de la scène à l'intérieur
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+            
+         // Donne l'accès au controller RootLayout
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
+            
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        // Essaye de charger le dernier fichier ouvert
+        File file = getPersonFilePath();
+        if (file != null) {
+            loadPersonDataFromFile(file);
         }
     }
     
@@ -130,7 +137,90 @@ public class MainApp extends Application {
             return false;
         }
     }
-    
+    //Gestion des données
+    // Retourne le dernier fichier ouvert. Si aucun fichier alors null est retourné
+
+    public File getPersonFilePath() {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        String filePath = prefs.get("filePath", null);
+        if (filePath != null) {
+            return new File(filePath);
+        } else {
+            return null;
+        }
+    }
+
+    //  Définit le chemin d'accès au fichier actuellement chargé
+    public void setPersonFilePath(File file) {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        if (file != null) {
+            prefs.put("filePath", file.getPath());
+
+            // Modification du titre
+            primaryStage.setTitle("Carnet d'adresse - " + file.getName());
+        } else {
+            prefs.remove("filePath");
+            // Modification du titre
+            primaryStage.setTitle("Carnet d'adresse");
+        }
+    }
+    // Charge les données du fichier spécifié
+
+    public void loadPersonDataFromFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(PersonListWrapper.class);
+            //
+            Unmarshaller um = context.createUnmarshaller();
+
+            // Lit les données du fichier XML et  la méthode unmarshal() permet de créer les différents objets
+            PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
+            //vide les contacts
+            personData.clear();
+            //charge le XML
+            personData.addAll(wrapper.getPersons());
+
+            //Enregistre le chemin du fichier
+            setPersonFilePath(file);
+
+        } catch (Exception e) { //Message d'erreur 
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Chargement impossible");
+            alert.setContentText("Impossible de charger les données du fichier :\n" + file.getPath());
+
+            alert.showAndWait();
+        }
+    }
+
+    // enregistrer le contact dans le fichier
+
+    public void savePersonDataToFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(PersonListWrapper.class);
+            Marshaller m = context.createMarshaller();//permet de formater le document XML
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);//propriété qui indique que le XML doit etre formaté(true)
+
+            // Wrapping our person data.
+            PersonListWrapper wrapper = new PersonListWrapper();
+            wrapper.setPersons(personData);
+
+            // Marshalling and saving XML to the file.
+            //L'appel de la méthode marshal() formate le document et précise où est envoyé le résultat
+            m.marshal(wrapper, file);
+
+            // Sauvegarde des données dans le fichier spécifié
+            setPersonFilePath(file);
+        } catch (Exception e) { //Message d'erreur 
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Enregistrement impossible");
+            alert.setContentText("Impossible d'enregistrer les données du fichier :\n" + file.getPath());
+
+            alert.showAndWait();
+        }
+    }
     
     //getteur PrimaryStage
     public Stage getPrimaryStage() {

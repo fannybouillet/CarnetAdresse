@@ -80,7 +80,7 @@ public class PersonOverviewController {
     		villeLabel.setText(person.getVille());
     		anniversaireLabel.setText(DateUtil.format(person.getAnniversaire()));
     		mailLabel.setText(person.getMail());
-    		numeroLabel.setText(Integer.toString(person.getNumero()));
+    		numeroLabel.setText(person.getNumero());
     	} else {
     		// Person is null, remove all the text.
     		prenomLabel.setText("");

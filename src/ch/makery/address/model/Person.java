@@ -2,6 +2,9 @@ package ch.makery.address.model;
 
 import java.time.LocalDate;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import ch.makery.address.util.LocalDateAdapter;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -17,22 +20,22 @@ public class Person {
     private final IntegerProperty codePostal;
     private final StringProperty ville;
     private final StringProperty mail;
-    private final IntegerProperty numero;
+    private final StringProperty numero;
     private final ObjectProperty<LocalDate> anniversaire;
     
 
     //constructeur
     public Person() {
-        this(null, null, null, 0, null, 0, null);
+        this(null, null, null, 0, null, null, null);
     }
-    public Person(String prenom, String nom,String adresse, int cp, String ville,int num,String mail) {
+    public Person(String prenom, String nom,String adresse, int cp, String ville,String num,String mail) {
     	this.prenom = new SimpleStringProperty(prenom);
         this.nom = new SimpleStringProperty(nom);
         this.adresse = new SimpleStringProperty(adresse);
         this.codePostal = new SimpleIntegerProperty(cp);
         this.ville = new SimpleStringProperty(ville);
         this.mail = new SimpleStringProperty(mail);
-        this.numero = new  SimpleIntegerProperty(num);
+        this.numero = new  SimpleStringProperty(num);
         this.anniversaire = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
 
@@ -97,16 +100,17 @@ public class Person {
         return mail;
     }
     //numero
-    public int getNumero() {
+    public String getNumero() {
         return numero.get();
     }
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero.set(numero);
     }
-    public IntegerProperty numeroProperty() {
+    public StringProperty numeroProperty() {
         return numero;
     }
     //anniversaire
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getAnniversaire() {
         return anniversaire.get();
     }
