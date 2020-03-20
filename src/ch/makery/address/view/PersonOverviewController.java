@@ -93,6 +93,22 @@ public class PersonOverviewController {
     		numeroLabel.setText("");
     	}
     }
-    
+    //Bouton qui permet de supprimer une personne
+    @FXML
+    private void handleDeletePerson() {
+        int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            personTable.getItems().remove(selectedIndex);
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Pas de sélection");
+            alert.setHeaderText("Vous n'avez pas sélectionnez de contact");
+            alert.setContentText("Veuillez sélectionner un contact svp.");
+
+            alert.showAndWait();
+        }
+    }
 
 }
