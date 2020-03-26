@@ -34,45 +34,41 @@ public class PersonOverviewController {
     private Label mailLabel;
     @FXML
     private Label numeroLabel;
-
-    // Reference to the main application.
     private MainApp mainApp;
 
-    // The constructor is called before the initialize() method.
-    public PersonOverviewController() {
-    }
 
     // Initializes the controller class. This method is automatically called after the fxml file has been loaded.
     
     @FXML
     private void initialize() {
-    	// Initialize the person table with the two columns.
+    	// Initialise le tableau avec 2 colonnes
         prenomColonne.setCellValueFactory(
         		cellData -> cellData.getValue().prenomProperty());
         nomColonne.setCellValueFactory(
         		cellData -> cellData.getValue().nomProperty());
         
-        // Clear person details.
+        // Efface la partie détails
         showPersonDetails(null);
-
-        // Listen for selection changes and show the person details when changed.
+        
+        //Design Pattern observer  
+        // Écoute les changements de sélection et affiche les détails de la personne lorsqu'elle est modifiée.
 		personTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
 
-    //Is called by the main application to give a reference back to itself.
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
-        // Add observable list data to the table
+        // Ajoute la liste observée à la tableView
         personTable.setItems(mainApp.getPersonData());
     }
     
-    //Fills all text fields to show details about the person. If the specified person is null, all text fields are cleared.
+    // Remplit tous les text fields pour voir les détails des personnes. Si pas de sélection alors les text fields sont vides
 
     private void showPersonDetails(Person person) {
     	if (person != null) {
-    		// Fill the labels with info from the person object.
+    		// Si la personne n'est pas nulle, on remplit les text fields
     		prenomLabel.setText(person.getPrenom());
     		nomLabel.setText(person.getNom());
     		adresseLabel.setText(person.getAdresse());
@@ -82,7 +78,7 @@ public class PersonOverviewController {
     		mailLabel.setText(person.getMail());
     		numeroLabel.setText(person.getNumero());
     	} else {
-    		// Person is null, remove all the text.
+    		//Sinon on efface les text fields
     		prenomLabel.setText("");
     		nomLabel.setText("");
     		adresseLabel.setText("");
@@ -93,7 +89,7 @@ public class PersonOverviewController {
     		numeroLabel.setText("");
     	}
     }
-    //Bouton qui permet de supprimer une personne
+    //permet de supprimer une personne
     @FXML
     private void handleDeletePerson() {
         int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
@@ -121,7 +117,6 @@ public class PersonOverviewController {
     }
 
     // Appel la fenetre Edit pour modifier le contact sélectionne (les champs sont remplis de la personne selectionnée)
-
     @FXML
     private void handleEditPerson() {
         Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
@@ -132,7 +127,7 @@ public class PersonOverviewController {
             }
 
         } else {
-            // Si pas de contact sélectionné
+            // Si pas de contact sélectionné message d'erreur
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("Pas de sélection");

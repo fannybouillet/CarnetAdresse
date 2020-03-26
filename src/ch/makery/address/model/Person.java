@@ -1,5 +1,4 @@
 package ch.makery.address.model;
-
 import java.time.LocalDate;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -13,7 +12,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Person {
-	
+	//property sert à etre averti en cas de changement (design pattern observer)
+	//il est obligatoire d'utiliser la propriété JavaFX, comme la liste de personnes rendue avec tableView qui est modifiable. 
+	//Pour refléter les modifications immédiatement dans la cellule modifiée, le champ lié sous-jacent doit être une property.
     private final StringProperty prenom;
     private final StringProperty nom;
     private final StringProperty adresse;
@@ -117,7 +118,5 @@ public class Person {
     public void setAnniversaire(LocalDate anniversaire) {
         this.anniversaire.set(anniversaire);
     }    
-    public ObjectProperty<LocalDate> anniversaireProperty() {
-        return anniversaire;
-    }
+
 }

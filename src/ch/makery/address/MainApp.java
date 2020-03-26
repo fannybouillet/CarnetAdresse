@@ -1,6 +1,4 @@
 package ch.makery.address;
-
-//imports
 import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
@@ -30,13 +28,12 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     
+    //design pattern : observer
     //Données de la liste observable = si changement, on est averti
     private ObservableList<Person> personData = FXCollections.observableArrayList();
 
 
-    public MainApp() {
-    }
-  
+
     // retourne les données de la liste observée
     public ObservableList<Person> getPersonData() {
         return personData;
@@ -81,9 +78,8 @@ public class MainApp extends Application {
     }
     
 
-    /**
-     * Shows the person overview inside the root layout.
-     */
+    //Montre la vue PersonOverview à l'intérieur de RootLayout.
+     
     public void showPersonOverview() {
         try {
             // Charge personOverview.
@@ -115,7 +111,7 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
-            // Create the dialog Stage.
+            // Crée la nouvelle fenetre 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Modification d'un contact");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -170,7 +166,7 @@ public class MainApp extends Application {
         try {
             JAXBContext context = JAXBContext
                     .newInstance(PersonListWrapper.class);
-            //
+            
             Unmarshaller um = context.createUnmarshaller();
 
             // Lit les données du fichier XML et  la méthode unmarshal() permet de créer les différents objets
@@ -206,7 +202,7 @@ public class MainApp extends Application {
             PersonListWrapper wrapper = new PersonListWrapper();
             wrapper.setPersons(personData);
 
-            // Marshalling and saving XML to the file.
+            // Marshalling et sauvegarde XML dans le fichier.
             //L'appel de la méthode marshal() formate le document et précise où est envoyé le résultat
             m.marshal(wrapper, file);
 

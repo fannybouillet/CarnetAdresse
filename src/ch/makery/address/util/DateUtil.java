@@ -9,17 +9,11 @@ public class DateUtil {
     //format final que nous désirons
     private static final String DATE_PATTERN = "dd.MM.yyyy";
 
-    /** The date formatter. */
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_PATTERN);
 
-    /**
-     * Returns the given date as a well formatted String. The above defined
-     * {@link DateUtil#DATE_PATTERN} is used.
-     *
-     * @param date the date to be returned as a string
-     * @return formatted string
-     */
+    //Retourne la date donnée en bon format String 
+
     public static String format(LocalDate date) {
         if (date == null) {
             return null;
@@ -27,15 +21,7 @@ public class DateUtil {
         return DATE_FORMATTER.format(date);
     }
 
-    /**
-     * Converts a String in the format of the defined {@link DateUtil#DATE_PATTERN}
-     * to a {@link LocalDate} object.
-     *
-     * Returns null if the String could not be converted.
-     *
-     * @param dateString the date as String
-     * @return the date object or null if it could not be converted
-     */
+    // Converti un String au bon format en date. Retourne null si c'est pas convertible    		 
     public static LocalDate parse(String dateString) {
         try {
             return DATE_FORMATTER.parse(dateString, LocalDate::from);
@@ -43,15 +29,9 @@ public class DateUtil {
             return null;
         }
     }
-
-    /**
-     * Checks the String whether it is a valid date.
-     *
-     * @param dateString
-     * @return true if the String is a valid date
-     */
+    //Vérifie si la chaîne est une date valide.Retourne vrai si la chaîne est une date valide
     public static boolean validDate(String dateString) {
-        // Try to parse the String.
+        // Essai de transformer le string si non null
         return DateUtil.parse(dateString) != null;
     }
 }
