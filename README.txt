@@ -11,6 +11,7 @@ Vous pouvez renseigner :
 - l'adresse mail
 - la date d'anniversaire
 Vous pouvez créer un nouveau contact, modifier ou supprimer un contact existant.
+Cette application est relié à un fichier XML.
 
 
 

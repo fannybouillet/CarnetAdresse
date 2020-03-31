@@ -14,7 +14,7 @@ public class RootLayoutController {
         this.mainApp = mainApp;
     }
 
-    //Crée un carnet d'adresse vide
+    //Crée un carnet d'adresse vide et supprime le chemin du fichier
     @FXML
     private void handleNew() {
         mainApp.getPersonData().clear();
