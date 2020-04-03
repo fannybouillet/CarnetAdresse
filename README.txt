@@ -32,5 +32,19 @@ Nous devions respecter les points suivants :
 
 
 INSTALLATION
-Pour que l'application fonctionne il faut installer Java JDK8. 
-(Vous trouverez le fichier à l'URL ci-contre : https://www.oracle.com/java/technologies/javase-jdk8-downloads.html)
+Pour que l'application fonctionne il faut :
+installer Java JDK8. (Vous trouverez le fichier à l'URL ci-contre : https://www.oracle.com/java/technologies/javase-downloads.html)
+Posseder Eclipse 4.4 ou supérieur avec le plugin e(fx)clipse.
+Scene Builder 8.0 : https://gluonhq.com//products/scene-builder/
+
+CONFIGURATION d’Eclipse
+Nous devons paramètrer Eclipse pour qu’il utilise le JDK 8 et qu’il sache où trouver le le Scene Builder :
+
+- Ouvrez les préférences et sélectionnez la partie Java | Installed JREs.
+  Cliquez sur le bouton Add… pour ajoutez le JDK 8 puis sur Standard VM et sélectionnez le dossier contenant le JDK 8.
+  JDK 8 doit être le JDK par défaut (default) !
+
+- Sélectionnez la partie Java | Compiler.
+  Définissez la Compiler compliance level à 1.8 !
+
+- Sélectionnez la partie JavaFX puis spécifiez le chemin de votre exécutable Scene Builder !

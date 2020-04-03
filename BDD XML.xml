@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persons>
+    <person>
+        <adresse>6 impasse du bocage</adresse>
+        <anniversaire>1994-08-31</anniversaire>
+        <codePostal>74940</codePostal>
+        <mail>fanny.bouillet@gmail.com</mail>
+        <nom>BOUILLET</nom>
+        <numero>0635469161</numero>
+        <prenom>Fanny</prenom>
+        <ville>Annecy le Vieux</ville>
+    </person>
+    <person>
+        <adresse>6 impasse du Bocage</adresse>
+        <anniversaire>1991-04-28</anniversaire>
+        <codePostal>74940</codePostal>
+        <mail>anthony.dacruz@gmail.com</mail>
+        <nom>DA CRUZ</nom>
+        <numero>0687663359</numero>
+        <prenom>Anthony</prenom>
+        <ville>Annecy le Vieux</ville>
+    </person>
+    <person>
+        <adresse>5 rue Claudius Chappaz</adresse>
+        <anniversaire>1991-06-06</anniversaire>
+        <codePostal>74960</codePostal>
+        <mail>p.bouillet@hotmail.fr</mail>
+        <nom>BOUILLET</nom>
+        <numero>0659008594</numero>
+        <prenom>Pierre</prenom>
+        <ville>Cran Gevrier</ville>
+    </person>
+    <person>
+        <adresse>48 chemin du Battieu</adresse>
+        <anniversaire>1956-10-18</anniversaire>
+        <codePostal>74190</codePostal>
+        <mail>g.bouillet@hotmail.fr</mail>
+        <nom>BOUILLET</nom>
+        <numero>0450780201</numero>
+        <prenom>Gérard</prenom>
+        <ville>Passy</ville>
+    </person>
+    <person>
+        <adresse>Rue du Tresum</adresse>
+        <anniversaire>1993-10-25</anniversaire>
+        <codePostal>74940</codePostal>
+        <mail>n.patey@gmail.com</mail>
+        <nom>PATEY</nom>
+        <numero>0648399024</numero>
+        <prenom>Natacha</prenom>
+        <ville>Annecy-le-Vieux</ville>
+    </person>
+    <person>
+        <adresse>Rue du tresum</adresse>
+        <anniversaire>1999-02-21</anniversaire>
+        <codePostal>74940</codePostal>
+        <mail>d.dabernat@gmail.com</mail>
+        <nom>DABERNAT</nom>
+        <numero>0687831621</numero>
+        <prenom>Damien</prenom>
+        <ville>Annecy-le-Vieux</ville>
+    </person>
+</persons>
